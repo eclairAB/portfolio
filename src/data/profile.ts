@@ -34,6 +34,11 @@ export interface Profile {
   skills: { category: string; items: string[] }[]
   languages?: string[]
   certifications?: string[]
+  /** Provided by the owner (not in the CV). Shown on the Technical page only. */
+  aiWorkflow?: {
+    intro: string
+    practices: { title: string; description: string; icon: string }[]
+  }
 }
 
 /** First professional role (Infosoft, Nov 2019). Month is 0-based. */
@@ -227,6 +232,33 @@ export const profile: Profile = {
     { category: 'Mobile', items: ['NativeScript', 'React Native'] },
     { category: 'Payments', items: ['Stripe', 'Asaas/PIX', 'WooCommerce payment gateways'] },
     { category: 'SEO', items: ['SEO best practices'] },
+    { category: 'AI tools', items: ['Claude', 'Claude Code', 'GitHub Copilot'] },
   ],
   languages: ['English', 'Tagalog'],
+  aiWorkflow: {
+    intro:
+      'I use AI coding assistants as part of my day-to-day workflow to move faster on routine work, while I stay responsible for reviewing and owning every change.',
+    practices: [
+      {
+        title: 'Scaffolding & boilerplate',
+        description: 'Generating project setup, components and repetitive code.',
+        icon: 'mdi-hammer-wrench',
+      },
+      {
+        title: 'Debugging & code review',
+        description: 'Tracking down bugs and reviewing changes before they are merged.',
+        icon: 'mdi-bug-check-outline',
+      },
+      {
+        title: 'Docs & tests',
+        description: 'Writing documentation, READMEs and tests.',
+        icon: 'mdi-file-document-check-outline',
+      },
+      {
+        title: 'Research & learning',
+        description: 'Exploring unfamiliar APIs and SDKs, such as payment provider integrations.',
+        icon: 'mdi-book-search-outline',
+      },
+    ],
+  },
 }

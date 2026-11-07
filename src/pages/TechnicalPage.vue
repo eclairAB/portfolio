@@ -33,6 +33,29 @@ const cvUrl = `${import.meta.env.BASE_URL}Alan-Golpeo-Web-Developer-CV.pdf`
       </v-container>
     </section>
 
+    <section v-if="profile.aiWorkflow" id="ai-workflow" class="py-8">
+      <v-container>
+        <SectionHeading title="AI-assisted workflow" :subtitle="profile.aiWorkflow.intro" />
+        <v-row>
+          <v-col
+            v-for="practice in profile.aiWorkflow.practices"
+            :key="practice.title"
+            cols="12"
+            sm="6"
+            lg="3"
+          >
+            <v-card variant="outlined" class="h-100">
+              <v-card-item>
+                <v-icon :icon="practice.icon" color="primary" class="mb-2" />
+                <h3 class="text-subtitle-1 font-weight-bold">{{ practice.title }}</h3>
+              </v-card-item>
+              <v-card-text class="text-body-2">{{ practice.description }}</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
+
     <section id="projects" class="py-8">
       <v-container>
         <SectionHeading title="Project deep-dives" />

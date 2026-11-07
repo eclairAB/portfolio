@@ -13,3 +13,4 @@
 - [ ] **Phone number on the public site**: it is currently shown on the Contact section. Remove `phone` from `profile.ts` if you'd rather not publish it.
 - [ ] **Interests**: the CV lists tech conventions and video games. They are not used on the site yet.
 - [ ] **Hosting**: choose Netlify, Vercel, or GitHub Pages. `public/_redirects` is already set up for Netlify.
+- [ ] **AI-assisted workflow**: the Technical page lists Claude, Claude Code and GitHub Copilot, but they are not in the CV PDF. Add them to the CV so the downloadable PDF matches the site.
