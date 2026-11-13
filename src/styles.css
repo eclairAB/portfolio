@@ -20,6 +20,22 @@
 html {
   scroll-behavior: smooth;
 }
+/* Keep paragraphs to a readable line length inside the shared container width. */
+.measure {
+  max-width: 72ch;
+}
+/* Minimum readable sizes: body copy 16px, secondary text 14px. */
+.v-application .text-body-1 {
+  font-size: 1rem !important;
+  line-height: 1.6;
+}
+.v-application .text-body-2 {
+  font-size: 0.875rem !important;
+}
+/* One container width for every section. */
+.v-application .v-container {
+  max-width: 1160px;
+}
 section[id] {
   scroll-margin-top: 72px;
 }

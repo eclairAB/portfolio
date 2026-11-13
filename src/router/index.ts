@@ -1,42 +1,57 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, type RouterHistory, type RouteRecordRaw } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import { profile } from '../data/profile'
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomePage,
-      meta: {
-        title: `${profile.name} | ${profile.title}`,
-        description: profile.tagline,
-      },
+export const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage,
+    meta: {
+      title: `${profile.name} | ${profile.title}`,
+      description: profile.tagline,
     },
-    {
-      path: '/technical',
-      name: 'technical',
-      component: () => import('../pages/TechnicalPage.vue'),
-      meta: {
-        title: `Technical details | ${profile.name}`,
-        description: `Tech stack, project deep-dives and experience of ${profile.name}, ${profile.title}.`,
-      },
-    },
-    { path: '/:pathMatch(.*)*', redirect: '/' },
-  ],
-  scrollBehavior(to, _from, saved) {
-    if (saved) return saved
-    if (to.hash) return { el: to.hash, behavior: 'smooth' }
-    return { top: 0 }
   },
-})
+  {
+    path: '/technical',
+    name: 'technical',
+    component: () => import('../pages/TechnicalPage.vue'),
+    meta: {
+      title: `Technical details | ${profile.name}, ${profile.title}`,
+      description: `Tech stack, project deep-dives and full experience of ${profile.name}, ${profile.title}.`,
+    },
+  },
+  { path: '/:pathMatch(.*)*', redirect: '/' },
+]
 
-router.afterEach((to) => {
-  if (typeof to.meta.title === 'string') document.title = to.meta.title
-  if (typeof to.meta.description === 'string') {
-    document.querySelector('meta[name="description"]')?.setAttribute('content', to.meta.description)
+function setMeta(selector: string, content: string) {
+  document.head.querySelector(selector)?.setAttribute('content', content)
+}
+
+export function createAppRouter(history: RouterHistory) {
+  const router = createRouter({
+    history,
+    routes,
+    scrollBehavior(to, _from, saved) {
+      if (saved) return saved
+      if (to.hash) return { el: to.hash, behavior: 'smooth' }
+      return { top: 0 }
+    },
+  })
+
+  if (typeof document !== 'undefined') {
+    router.afterEach((to) => {
+      const { title, description } = to.meta
+      if (title) {
+        document.title = title
+        setMeta('meta[property="og:title"]', title)
+      }
+      if (description) {
+        setMeta('meta[name="description"]', description)
+        setMeta('meta[property="og:description"]', description)
+      }
+    })
   }
-})
 
-export default router
+  return router
+}
